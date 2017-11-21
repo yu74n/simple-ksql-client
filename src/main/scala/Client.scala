@@ -37,7 +37,6 @@ class Client extends Actor with ActorLogging with JsonSupport {
     case Select(query) =>
       val json = KsqlQuery(query).toJson
       val data = ByteString(json.compactPrint)
-//      val data = ByteString("{ \"ksql\" : \"SELECT pageid FROM pageviews_original LIMIT 3;\"} ")
       Http().singleRequest(HttpRequest(HttpMethods.POST,
         uri = "http://localhost:8080/query",
         entity = HttpEntity(`application/json`, data)
